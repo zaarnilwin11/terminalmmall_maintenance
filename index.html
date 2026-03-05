@@ -64,29 +64,30 @@ faster and happier experience.
 </div>
 
 <script>
+// Target: 2026-04-16 18:00:00 Myanmar Time (UTC+6:30)
+// This equals 2026-04-16 11:30:00 UTC
+var countDownDate = Date.UTC(2026, 3, 16, 11, 30, 0); // months are 0‑based: 3 = April
 
-var countDownDate = new Date().getTime() + (1000 * 60 * 60 * 72);
+var x = setInterval(function() {
+  var now = new Date().getTime(); // current time in milliseconds since epoch (UTC)
+  var distance = countDownDate - now;
 
-var x = setInterval(function(){
+  // Time calculations
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-var now = new Date().getTime();
-var distance = countDownDate - now;
+  // Display result
+  document.getElementById("countdown").innerHTML =
+    days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 
-var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-document.getElementById("countdown").innerHTML =
-days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-
-if(distance < 0){
-clearInterval(x);
-document.getElementById("countdown").innerHTML = "We're Back!";
-}
-
-},1000);
-
+  // If countdown is finished
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("countdown").innerHTML = "We're Back!";
+  }
+}, 1000);
 </script>
 
 </body>
